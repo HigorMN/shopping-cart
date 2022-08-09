@@ -35,12 +35,10 @@ const getFetchProduto = async (product) => {
   });
 };
 
-getFetchProduto('computador');
-
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+  //
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -51,4 +49,22 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+const getButtonCard = async () => {
+  const addCard = await document.querySelectorAll('.item__add');
+  addCard.forEach((e) => {
+    e.addEventListener('click', async (event) => {
+      const item = event.target.parentNode;
+      const takeId = getSkuFromProductItem(item);
+      const results = await fetchItem(takeId);
+      const items = document.querySelector('.cart__items');
+      const { id: sku, title: name, price: salePrice } = results;
+      const card = createCartItemElement({ sku, name, salePrice }); 
+      items.appendChild(card);
+    });
+  });
+};
+
+window.onload = async () => { 
+  await getFetchProduto('computador');
+  await getButtonCard();
+};
