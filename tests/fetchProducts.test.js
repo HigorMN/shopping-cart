@@ -30,7 +30,7 @@ describe('1 - Teste a função fetchProducts', () => {
     try {
       await fetchProducts();
     } catch (error) {
-     expect(error).toEqual('You must provide an url');
+     expect(error).toEqual(new Error('You must provide an url'));
     }
   })
 });
