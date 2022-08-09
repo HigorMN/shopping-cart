@@ -24,6 +24,19 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
+const getFetchProduto = async (product) => {
+  const data = await fetchProducts(product);
+  const { results } = data;
+  results.forEach((elemento) => {
+    const items = document.querySelector('.items');
+    const { id: sku, title: name, thumbnail: image } = elemento;
+    const creat = createProductItemElement({ sku, name, image });
+    items.appendChild(creat);
+  });
+};
+
+getFetchProduto('computador');
+
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {

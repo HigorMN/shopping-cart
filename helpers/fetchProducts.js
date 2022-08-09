@@ -8,7 +8,7 @@ const fetchProducts = async (product) => {
     return Promise.reject(new Error('You must provide an url'));
   }
   const dataAPI = await endPoint.json();
-  return await dataAPI;
+  return dataAPI;
 };
 
 if (typeof module !== 'undefined') {
