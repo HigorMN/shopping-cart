@@ -5,7 +5,7 @@ const ENDPOINTS = {
   ITEM: 'https://api.mercadolibre.com/items/MLB1615760527',
   SEARCH: 'https://api.mercadolibre.com/sites/MLB/search?q=computador',
 };
-
+//
 const TIME_IN_MILLISECONDS = 200;
 
 const fetchSimulator = (url) => {
