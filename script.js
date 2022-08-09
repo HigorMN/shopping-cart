@@ -38,7 +38,7 @@ const getFetchProduto = async (product) => {
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  //
+  event.target.remove();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
