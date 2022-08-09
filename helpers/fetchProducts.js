@@ -2,8 +2,9 @@ const fetchEndPoint = (product) => fetch('https://api.mercadolibre.com/sites/MLB
 
 const fetchProducts = async (product) => {
   const endPoint = await fetchEndPoint(product)
-  const result = await endPoint.json();
-  console.log(result.results);
+  const dataAPI = await endPoint.json();
+  const { results } = dataAPI
+  console.log(results);
 };
 
 fetchProducts('computador')
