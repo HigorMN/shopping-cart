@@ -13,4 +13,10 @@ describe('2 - Teste a função fetchItem', () => {
     expect(fetch).toHaveBeenCalled();
   })
 
+  test('Teste se, ao chamar a função fetchItem com o argumento do item \'MLB1615760527\', a função fetch utiliza o endpoint', async () => {
+    expect.assertions(1);
+    await fetchProducts('MLB1615760527');
+    const endpoint = 'https://api.mercadolibre.com/items/MLB1615760527'
+    expect(fetch).toBeCalledWith(endpoint);
+  })
 });
