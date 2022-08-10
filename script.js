@@ -1,4 +1,16 @@
 const list = document.querySelector('.cart__items');
+const clear = document.querySelector('.empty-cart');
+
+const clearInnerHTML = async () => {
+  list.innerHTML = '';
+  await saveCartItems('cartItems', list.innerHTML);
+};
+
+const btnClear = () => {
+  clear.addEventListener('click', clearInnerHTML);
+};
+
+btnClear();
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
