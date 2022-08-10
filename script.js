@@ -56,7 +56,7 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-const getBtnCard = async (event) => {
+const getButtonCardComplement = async (event) => {
   const items = document.querySelector('.cart__items');
   const item = event.target.parentNode;
   const takeId = getSkuFromProductItem(item);
@@ -69,7 +69,7 @@ const getBtnCard = async (event) => {
 
 const getButtonCard = async () => {
   const addCard = await document.querySelectorAll('.item__add');
-  addCard.forEach((button) => button.addEventListener('click', getBtnCard));
+  addCard.forEach((button) => button.addEventListener('click', getButtonCardComplement));
 };
 
 window.onload = async () => { 
