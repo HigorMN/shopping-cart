@@ -37,8 +37,9 @@ const getFetchProduto = async (product) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = (event) => {
+const cartItemClickListener = async (event) => {
   event.target.remove();
+  await saveCartItems();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -60,6 +61,7 @@ const getButtonCard = async () => {
       const { id: sku, title: name, price: salePrice } = results;
       const card = createCartItemElement({ sku, name, salePrice }); 
       items.appendChild(card);
+      await saveCartItems();
     });
   });
 };
