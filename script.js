@@ -69,7 +69,7 @@ const getBtnCard = async (event) => {
 
 const getButtonCard = async () => {
   const addCard = await document.querySelectorAll('.item__add');
-  addCard.forEach((e) => e.addEventListener('click', getBtnCard));
+  addCard.forEach((button) => button.addEventListener('click', getBtnCard));
 };
 
 window.onload = async () => { 
