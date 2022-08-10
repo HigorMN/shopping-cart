@@ -42,6 +42,12 @@ const cartItemClickListener = async (event) => {
   await saveCartItems();
 };
 
+const removeCartItemElement = async () => {
+  const li = document.querySelectorAll('.cart__item');
+  li.forEach((e) => e.addEventListener('click', cartItemClickListener));
+  await saveCartItems();
+}
+
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -69,4 +75,6 @@ const getButtonCard = async () => {
 window.onload = async () => { 
   await getFetchProduto('computador');
   await getButtonCard();
+  await getSavedCartItems();
+  await removeCartItemElement();
 };
