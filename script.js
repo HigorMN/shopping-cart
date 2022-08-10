@@ -46,7 +46,7 @@ const removeCartItemElement = async () => {
   const li = document.querySelectorAll('.cart__item');
   li.forEach((e) => e.addEventListener('click', cartItemClickListener));
   await saveCartItems();
-}
+};
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
   const li = document.createElement('li');
