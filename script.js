@@ -1,3 +1,5 @@
+const list = document.querySelector('.cart__items');
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -38,16 +40,14 @@ const getFetchProduto = async (product) => {
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = async (event) => {
-  const list = document.querySelector('.cart__items');
   event.target.remove();
-  await saveCartItems('cartItems',list.innerHTML);
+  await saveCartItems('cartItems', list.innerHTML);
 };
 
 const removeCartItemElement = async () => {
-  const list = document.querySelector('.cart__items');
   const li = document.querySelectorAll('.cart__item');
   li.forEach((e) => e.addEventListener('click', cartItemClickListener));
-  await saveCartItems('cartItems',list.innerHTML);
+  await saveCartItems('cartItems', list.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -59,7 +59,6 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 const getButtonCardComplement = async (event) => {
-  const list = document.querySelector('.cart__items');
   const items = document.querySelector('.cart__items');
   const item = event.target.parentNode;
   const takeId = getSkuFromProductItem(item);
@@ -67,13 +66,12 @@ const getButtonCardComplement = async (event) => {
   const { id: sku, title: name, price: salePrice } = results;
   const card = createCartItemElement({ sku, name, salePrice }); 
   items.appendChild(card);
-  await saveCartItems('cartItems',list.innerHTML);
+  await saveCartItems('cartItems', list.innerHTML);
 };
 
 const getSavedCartItemsCostruct = async (key) => {
-  const list = document.querySelector('.cart__items');
   list.innerHTML = await getSavedCartItems(key);
-}
+};
 
 const getButtonCard = async () => {
   const addCard = await document.querySelectorAll('.item__add');
