@@ -70,6 +70,11 @@ const getButtonCardComplement = async (event) => {
   await saveCartItems('cartItems',list.innerHTML);
 };
 
+const getSavedCartItemsCostruct = async (key) => {
+  const list = document.querySelector('.cart__items');
+  list.innerHTML = await getSavedCartItems(key);
+}
+
 const getButtonCard = async () => {
   const addCard = await document.querySelectorAll('.item__add');
   addCard.forEach((button) => button.addEventListener('click', getButtonCardComplement));
@@ -78,6 +83,6 @@ const getButtonCard = async () => {
 window.onload = async () => { 
   await getFetchProduto('computador');
   await getButtonCard();
-  await getSavedCartItems();
+  await getSavedCartItemsCostruct('cartItems');
   await removeCartItemElement();
 };
