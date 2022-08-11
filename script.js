@@ -1,13 +1,16 @@
 const list = document.querySelector('.cart__items');
+const cart = document.querySelector('.cart__item')
 const clear = document.querySelector('.empty-cart');
+const count = document.querySelector('.total-price');
 
 const clearInnerHTML = async () => {
   list.innerHTML = '';
   await saveCartItems('cartItems', list.innerHTML);
 };
 
-const btnClear = () => {
+const btnClear = async () => {
   clear.addEventListener('click', clearInnerHTML);
+  await countPrice();
 };
 
 btnClear();
@@ -56,6 +59,7 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 
 const cartItemClickListener = async (event) => {
   event.target.remove();
+  await countPrice();
   await saveCartItems('cartItems', list.innerHTML);
 };
 
@@ -63,6 +67,7 @@ const removeCartItemElement = async () => {
   const li = document.querySelectorAll('.cart__item');
 
   li.forEach((e) => e.addEventListener('click', cartItemClickListener));
+  await countPrice();
   await saveCartItems('cartItems', list.innerHTML);
 };
 
@@ -86,6 +91,7 @@ const getButtonCardComplement = async (event) => {
   const card = createCartItemElement({ sku, name, salePrice }); 
   
   items.appendChild(card);
+  await countPrice();
   await saveCartItems('cartItems', list.innerHTML);
 };
 
@@ -98,9 +104,25 @@ const getButtonCard = async () => {
   addCard.forEach((button) => button.addEventListener('click', getButtonCardComplement));
 };
 
+const countPrice = () => {
+  const ulChildren = list.children;
+  let result = 0;
+  if (ulChildren.length > 0) {
+  for (let index = 0; index < ulChildren.length; index += 1) {
+    const indexString = ulChildren[index].innerText.indexOf('$') + 1;
+    const number = ulChildren[index].innerText.substring(indexString);
+    result += parseFloat(number);
+  }
+  }
+  count.innerText = `Subtotal: R$ ${result.toFixed(2)}`
+  console.log(result.toFixed(2));
+}
+
+
 window.onload = async () => { 
   await getFetchProduto('computador');
   await getButtonCard();
   await getSavedCartItemsCostruct('cartItems');
   await removeCartItemElement();
+  await countPrice();
 };
