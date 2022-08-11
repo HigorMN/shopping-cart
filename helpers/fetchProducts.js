@@ -8,7 +8,7 @@ const fetchProducts = async (product) => {
     const dataAPI = await endPoint.json();
     return await dataAPI;
   } catch (error) {
-    return 'You must provide an url';
+    throw new Error('You must provide an url');
   }
 };
 
