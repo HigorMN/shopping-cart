@@ -3,14 +3,14 @@ const cart = document.querySelector('.cart__item')
 const clear = document.querySelector('.empty-cart');
 const count = document.querySelector('.total-price');
 
-const clearInnerHTML = async () => {
+const clearInnerHTML = () => {
   list.innerHTML = '';
-  await saveCartItems('cartItems', list.innerHTML);
+  saveCartItems('cartItems', list.innerHTML);
+  countPrice();
 };
 
-const btnClear = async () => {
+const btnClear = () => {
   clear.addEventListener('click', clearInnerHTML);
-  await countPrice();
 };
 
 btnClear();
@@ -57,18 +57,18 @@ const getFetchProduto = async (product) => {
 
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
-const cartItemClickListener = async (event) => {
+const cartItemClickListener = (event) => {
   event.target.remove();
-  await countPrice();
-  await saveCartItems('cartItems', list.innerHTML);
+  countPrice();
+  saveCartItems('cartItems', list.innerHTML);
 };
 
-const removeCartItemElement = async () => {
+const removeCartItemElement = () => {
   const li = document.querySelectorAll('.cart__item');
 
   li.forEach((e) => e.addEventListener('click', cartItemClickListener));
-  await countPrice();
-  await saveCartItems('cartItems', list.innerHTML);
+  countPrice();
+  saveCartItems('cartItems', list.innerHTML);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -91,7 +91,7 @@ const getButtonCardComplement = async (event) => {
   const card = createCartItemElement({ sku, name, salePrice }); 
   
   items.appendChild(card);
-  await countPrice();
+  countPrice();
   await saveCartItems('cartItems', list.innerHTML);
 };
 
@@ -123,6 +123,6 @@ window.onload = async () => {
   await getFetchProduto('computador');
   await getButtonCard();
   await getSavedCartItemsCostruct('cartItems');
-  await removeCartItemElement();
-  await countPrice();
+  removeCartItemElement();
+  countPrice();
 };
