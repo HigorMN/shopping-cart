@@ -1,7 +1,19 @@
 const list = document.querySelector('.cart__items');
-const cart = document.querySelector('.cart__item')
 const clear = document.querySelector('.empty-cart');
 const count = document.querySelector('.total-price');
+
+const countPrice = () => {
+  const ulChildren = list.children;
+  let result = 0;
+  if (ulChildren.length > 0) {
+  for (let index = 0; index < ulChildren.length; index += 1) {
+    const indexString = ulChildren[index].innerText.indexOf('$') + 1;
+    const number = ulChildren[index].innerText.substring(indexString);
+    result += parseFloat(number);
+  }
+  }
+  count.innerText = `Subtotal: R$ ${result.toFixed(2)}`;
+};
 
 const clearInnerHTML = () => {
   list.innerHTML = '';
@@ -103,21 +115,6 @@ const getButtonCard = async () => {
   const addCard = await document.querySelectorAll('.item__add');
   addCard.forEach((button) => button.addEventListener('click', getButtonCardComplement));
 };
-
-const countPrice = () => {
-  const ulChildren = list.children;
-  let result = 0;
-  if (ulChildren.length > 0) {
-  for (let index = 0; index < ulChildren.length; index += 1) {
-    const indexString = ulChildren[index].innerText.indexOf('$') + 1;
-    const number = ulChildren[index].innerText.substring(indexString);
-    result += parseFloat(number);
-  }
-  }
-  count.innerText = `Subtotal: R$ ${result.toFixed(2)}`
-  console.log(result.toFixed(2));
-}
-
 
 window.onload = async () => { 
   await getFetchProduto('computador');
