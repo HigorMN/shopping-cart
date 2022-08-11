@@ -6,13 +6,13 @@ const countPrice = () => {
   const ulChildren = list.children;
   let result = 0;
   if (ulChildren.length > 0) {
-  for (let index = 0; index < ulChildren.length; index += 1) {
-    const indexString = ulChildren[index].innerText.indexOf('$') + 1;
-    const number = ulChildren[index].innerText.substring(indexString);
-    result += parseFloat(number);
+    for (let index = 0; index < ulChildren.length; index += 1) {
+      const indexString = ulChildren[index].innerText.indexOf('$') + 1;
+      const number = ulChildren[index].innerText.substring(indexString);
+      result += parseFloat(number);
+    }
   }
-  }
-  count.innerText = `Subtotal: R$ ${result.toFixed(2)}`;
+  count.innerText = Math.round((result + Number.EPSILON) * 100) / 100;
 };
 
 const clearInnerHTML = () => {
