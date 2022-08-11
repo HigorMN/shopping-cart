@@ -1,6 +1,19 @@
 const list = document.querySelector('.cart__items');
+const items = document.querySelector('.items');
 const clear = document.querySelector('.empty-cart');
 const count = document.querySelector('.total-price');
+
+const loadingAPI = () => {
+  const loading = document.createElement('span');
+  loading.className = 'loading';
+  loading.innerText = 'Carregando...';
+  items.appendChild(loading);
+};
+
+const loadingAPIRemove = () => {
+  const loadingRemove = document.querySelector('.loading');
+  loadingRemove.remove();
+};
 
 const countPrice = () => {
   const ulChildren = list.children;
@@ -54,8 +67,6 @@ const createProductItemElement = ({ sku, name, image }) => {
 };
 
 const createListProduto = (item) => {
-  const items = document.querySelector('.items');
-
   const { id: sku, title: name, thumbnail: image } = item;
   const creat = createProductItemElement({ sku, name, image });
 
@@ -63,7 +74,9 @@ const createListProduto = (item) => {
 };
 
 const getFetchProduto = async (product) => {
+  loadingAPI();
   const data = await fetchProducts(product);
+  loadingAPIRemove();
   data.results.forEach((item) => createListProduto(item));
 };
 
@@ -94,7 +107,7 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
 };
 
 const getButtonCardComplement = async (event) => {
-  const items = document.querySelector('.cart__items');
+  const cartItems = document.querySelector('.cart__items');
 
   const item = event.target.parentNode;
   const takeId = getSkuFromProductItem(item);
@@ -102,7 +115,7 @@ const getButtonCardComplement = async (event) => {
   const { id: sku, title: name, price: salePrice } = results;
   const card = createCartItemElement({ sku, name, salePrice }); 
   
-  items.appendChild(card);
+  cartItems.appendChild(card);
   countPrice();
   await saveCartItems('cartItems', list.innerHTML);
 };
