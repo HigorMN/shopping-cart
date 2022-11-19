@@ -83,7 +83,7 @@ const getFetchProduto = async (product) => {
 const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  event.target.remove();
+  event.target.parentNode.remove();
   countPrice();
   saveCartItems('cartItems', list.innerHTML);
 };
@@ -96,11 +96,16 @@ const removeCartItemElement = () => {
   saveCartItems('cartItems', list.innerHTML);
 };
 
-const createCartItemElement = ({ sku, name, salePrice }) => {
+const createCartItemElement = ({ sku, name, salePrice, thumbnail }) => {
+  const images = document.createElement('img');
+  const p = document.createElement('p');
   const li = document.createElement('li');
 
+  images.src = thumbnail;
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  p.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.appendChild(images);
+  li.appendChild(p);
   li.addEventListener('click', cartItemClickListener);
 
   return li;
@@ -112,8 +117,8 @@ const getButtonCardComplement = async (event) => {
   const item = event.target.parentNode;
   const takeId = getSkuFromProductItem(item);
   const results = await fetchItem(takeId);
-  const { id: sku, title: name, price: salePrice } = results;
-  const card = createCartItemElement({ sku, name, salePrice }); 
+  const { id: sku, title: name, price: salePrice, thumbnail } = results;
+  const card = createCartItemElement({ sku, name, salePrice, thumbnail }); 
   
   cartItems.appendChild(card);
   countPrice();
